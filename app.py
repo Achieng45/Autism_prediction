@@ -15,20 +15,23 @@ def analysis():
 @flask_app.route("/", methods = ["GET","POST"])
 def home():
     if request.method == "POST":
-        A10 = int(request.form['A10'])
+        #A10 = int(request.form['A10'])
         A9 = int(request.form['A9'])
         A8 = int(request.form['A8'])
-        A7 = int(request.form['A7'])
+        #A7 = int(request.form['A7'])
         A6 = int(request.form['A6'])
-        A5 = int(request.form['A5'])
+        #A5 = int(request.form['A5'])
         A4 = int(request.form['A4'])
         A3 = int(request.form['A3'])
         A2 = int(request.form['A2'])
-        A1 = int(request.form['A1'])
-       
+        #A1 = int(request.form['A1'])
+        
+        
+        
+        """
         Gender = int(request.form['Gender'])
         Age = int(request.form['Age'])
-        Region = int(request.form['Reqion'])
+        Region = request.form['Region']
         family = int(request.form['Family member with ASD history'])
         
         
@@ -38,7 +41,7 @@ def home():
         
        
         
-        """
+      
             
         #region
         if(Region == "Riyadh Province"):
@@ -52,7 +55,7 @@ def home():
         elif(Region == "Eastern Province"):
             region = 5
         elif(Region == "Aseer Province"):
-            region = 6
+            region = 6 
         elif(Region == "Tabuk Province"):
             region = 7
         elif(Region == "Ha'il Province"):
@@ -69,6 +72,7 @@ def home():
             region = 13
         else:
             print("Choose any of the regions above")
+          
         
         #Family
         if(family == "Yes"):
@@ -125,18 +129,18 @@ def home():
             gestures = 0 
         """
        
-        feature = scaler.fit_transform([[A10,A9,A8,A7,A6,A5,A4,A3,A2,A1,Region,family,Age,Gender]])
+        feature = scaler.fit_transform([[A9,A8,A6,A4,A3,A2,]])
         
         prediction = model.predict(feature)[0]
         # print(prediction) 
         # 
         if prediction==0:
-            prediction = "NO" 
-        else:
             prediction = "YES" 
+        else:
+            prediction = "NO" 
     
     
-        return render_template("index.html", prediction_text = "Chance of Autism Prediction is -->{}".format(prediction))
+        return render_template("index.html", prediction_text = "Chance of Autism spectrum is -->{}".format(prediction))
     else:
         return render_template("index.html")
     
