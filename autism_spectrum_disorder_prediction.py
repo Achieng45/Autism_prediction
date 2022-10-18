@@ -16,9 +16,7 @@ import seaborn as sns
 from sklearn.preprocessing import MinMaxScaler,StandardScaler,LabelEncoder
 from sklearn.metrics import classification_report, confusion_matrix
 
-asd=pd.read_csv('Autism Spectrum Disorder Screening Data for Toddlers in Saudi Arabia Data Set.csv')
-
-asd
+asd=pd.read_csv('Autism_prediction\Autism Spectrum Disorder Screening Data for Toddlers in Saudi Arabia Data Set.csv')
 
 """Data Preprocessing and conversion to numerical values"""
 
