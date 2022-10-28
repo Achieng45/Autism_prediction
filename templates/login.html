@@ -2,7 +2,7 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}
-RiskAssess | Login
+ASD Prediction | Login
 {% endblock %}
 
 {% block styles %}
@@ -14,15 +14,22 @@ RiskAssess | Login
     <div class="container">
 
       <form class="form-signin" method="POST" action="/login">
-        <h1 style="text-align:center; text-size:30px">RiskAssess</h1>
+        <h1 style="text-align:center; text-size:30px">Autism Spectrum Prediction</h1>
         <p style="text-align:center">Account Login</p>
-        {{ form.hidden_tag() }}
-        {{ wtf.form_field(form.username) }}
-        {{ wtf.form_field(form.password) }}
-        {{ wtf.form_field(form.remember) }}
+        <div class = "form-group">
+          <label> Email:</label>
+          <input type ="text" class="form-control" name="Email">
+        </div>
+          <div class = "form-group">
+            <label> Password:</label>
+            <input type ="password" class="form-control" name="Password">
+          </div>
+          <div class="form-group">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button><br/>
+          </div>
         <br/>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button><br/>
-        <p style="text-align:center">Don't have an account? <a href="/signup">Sign Up</a></p>
+        
+        <p style="text-align:center">Don't have an account? <a href="/signup">Sign up</a></p>
         <br/>
         <p style="text-align:center"><a href="/">Back Home</a></p>
       </form>
