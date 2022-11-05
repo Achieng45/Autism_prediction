@@ -19,6 +19,8 @@
 
 nav {
     font-family: sans-serif;
+    padding-top:none;
+   
 }
 
 .navbar-brand {
@@ -28,52 +30,54 @@ nav {
     </style>
 
 </head>
+
 <body>
-    <form id="form1">
-        <header>
-            <!--Navigation Bar-->
-			<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-                <a class="navbar-brand" href="#"><b>ASD Prediction</b></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/login">Get Started</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="/login">Login</a>
-                  </li>
-                      <li class="nav-item">
-                      <a class="nav-link" href="/signup">Sign Up</a>
-                  </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/disindex">Disease Index</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="/index">ASD Prediction</a>
-                  </li>
-                    <li class="nav-item">
-		                <a class="nav-link" href="#">|</a>
-		            </li>
-                    <li class="nav-item">
-		                <a class="nav-link" href="/logout">Logout</a>
-		            </li>
+  <div class="alert alert-success alert-dismissible fade show text-center mb-0 fixed-top" role="alert" style="padding-bottom:20px;">
+    <strong>Welcome to Autism Prediction machine</strong> 
+    
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
+    <div class="container-fluid">
+        <a class="navbar-brand text-warning" href="#">Autism Prediction</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="login">Get started</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="signup">Sign up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="login">log in </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Contact us</a>
+                </li>
+                
+            
                     </ul>
                 </div>
             </nav>
 
          <main role="main">
 
-  <div class="jumbotron">
+  <div class="alert alert-success alert-dismissible fade show text-center " style="padding-top:30px">
+   
     <div class="container">
-      <h1 class="display-4">Hello! Lets Get Started with Autism Spectrum Prediction</h1>
+      <strong>
+      <h1 class="display-4" >Hello! Lets Get Started with Autism Spectrum Prediction</h1>
       <p>Welcome to ASD Prediction!, this system predicts the risk of a child being in the Autism Spectrum</p 
           <p>Click below to predict autism.</p>
-      <p><a class="btn btn-primary btn-lg" href="/login" role="button">Get Started &raquo;</a></p>
+      </strong>
+      <p><a class="btn btn-primary btn-lg " href="/login" role="button">Get Started &raquo;</a></p>
     </div>
   </div>
+
 
   <div class="container">
 

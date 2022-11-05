@@ -1,4 +1,5 @@
-from email import message
+
+from django.shortcuts import render
 import numpy as np
 import joblib
 import pickle 
@@ -7,7 +8,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_mysqldb import MySQL, MySQLdb
 import bcrypt
+import MySQLdb.cursors
 from sklearn.preprocessing import StandardScaler
+import re
 scaler =StandardScaler()
 model = pickle.load(open("model.pkl", "rb"))
 
@@ -18,6 +21,7 @@ app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'asd_prediction1'
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
 bootstrap = Bootstrap(app)
     
@@ -25,34 +29,6 @@ bootstrap = Bootstrap(app)
 @app.route('/')
 def dashboard():
     return render_template("dashboard.html")
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-   
-    if request.method == "POST":
-        Email = request.form['Email']
-        Password = request.form['Password'].encode('utf-8')
-        
-        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cur.execute("SELECT * FROM user WHERE Email=%s AND Password=%s",(Email,Password,))
-        user = cur.fetchone()
-        cur.close()
-        
-        if user:
-            #if bcrypt.hashpw(Password,user['Password'].encode('utf-8')) == user['Password'].encode('utf-8'):
-                
-            session['loggedin']= True
-            #session['First_name']= user['First_name']
-            #session['Last_name']=user['Last_name']
-            session['Email'] = user['Email']
-            message = 'Logged in successfully'
-            return redirect(url_for("index"))
-        else:
-             return "Error wrong password or email"
-               
-        
-    
-    return render_template("index.html")
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -64,38 +40,56 @@ def signup():
         Last_name = request.form['Last_name']
         Email = request.form['Email']
         Password = request.form['Password'].encode('utf-8')
-        hash_password = bcrypt.hashpw(Password,bcrypt.gensalt())
+        #hash_password = bcrypt.hashpw(Password,bcrypt.gensalt())
         
         cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cur.execute("INSERT INTO user VALUES (%s,%s,%s,%s,%s)",(User_id,First_name,Last_name,Email,hash_password,))
+        cur.execute("INSERT INTO user VALUES (%s,%s,%s,%s,%s)",(User_id,First_name,Last_name,Email,Password,))
         mysql.connection.commit()
         session['First_name'] = First_name
         session['Last_name']=Last_name
         session['Email']=Email
         return redirect(url_for("login"))
-        
-     
-""""
-@app.route("/dashboard")
-#@login_required
-def dashboard():
-    return render_template("dashboard.html")
-"""
-@app.route('/logout')
 
+@app.route('/login', methods=["GET", "POST"])
+def login():
+    if request.method == 'POST':
+        Email = request.form['Email']
+        Password = request.form['Password'].encode('utf-8')
+        
+        curl = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        curl.execute("SELECT * FROM user WHERE Email=%s AND Password=%s",(Email,Password,))
+        users = curl.fetchone()
+        curl.close()
+        
+        #users["Password"].encode('utf-8')
+        if users:
+            #if bcrypt.checkpw(Password,users["Password"].encode('utf-8')) == users["Password"].encode('utf-8'):
+            session['loggedin'] = True
+            session['First_name'] = users['First_name']
+            session['Last_name'] = users['Last_name']
+            session['Email'] = users['Email']
+            return redirect(url_for("index"))
+        else:
+                return "Incorrect username or password"
+       
+    return render_template("login.html")
+
+@app.route('/')
+def home():
+    if 'loggedin' in session:
+        return render_template('index.html',Email=session['Email'])
+    return redirect(url_for('login'))
+
+@app.route('/dashboard')
 def logout():
     session.clear()
-    return redirect(url_for('index1'))
-"""
-@flask_app.route("/analysis")
-def analysis():
-    return render_template("index.html")
-"""
-@flask_app.route("/index", methods = ["GET","POST"])
-def home():
-    if request.method == "POST":
-        #return render_template("index.html")
-        
+    return render_template("dashboard.html")
+
+
+
+@app.route("/index", methods = ["GET","POST"])
+def index():
+    if request.method=="POST":
         A9 = int(request.form['A9'])
         A8 = int(request.form['A8'])
         A6 = int(request.form['A6'])
@@ -119,4 +113,4 @@ def home():
 
 if __name__ == "__main__":
     app.debug =True
-    flask_app.run(debug=True)
+    app.run(debug=True)
