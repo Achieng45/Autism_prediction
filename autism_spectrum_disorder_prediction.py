@@ -122,7 +122,8 @@ from sklearn.ensemble import RandomForestClassifier
 RFC_model_AFS=RandomForestClassifier(n_estimators=100)
 RFC_model_AFS.fit(X_train_f,y_train_f)
 
-"""Prediction
+"""
+Prediction
 
 """
 
@@ -182,5 +183,8 @@ print(f'Test Accuracy-:{rf_grid.score(X_test_f,y_test_f):.3f}')
 
 print(f'Train Accuracy - :{rf_RandomGrid.score(X_train_f,y_train_f):.3f}')
 print(f'Test Accuracy-:{rf_RandomGrid.score(X_test_f,y_test_f):.3f}')
-
+"""
 pickle.dump(rf_RandomGrid, open("model.pkl","wb"))
+"""
+with open('model.pkl','wb') as file:
+    pickle.dump(rf_RandomGrid,file)
