@@ -40,6 +40,9 @@
                         <a class="nav-link active" aria-current="page" href="#">Contact us</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="admin">Admin</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="dashboard">Log out</a>
                         
 
@@ -49,7 +52,7 @@
             <div>
                 <ul>
                 <li style="float:right;">
-                    <a class="nav-link active" aria-current="page" ><strong  > Welcome {{session.First_name}}</a>
+                    <a class="navbar-brand text-warning" aria-current="page" > Welcome {{session.First_name}}</a>
                 </li> 
                <ul>
             </div>
@@ -77,7 +80,7 @@
             <form action="/" method="POST">
     
                 
-                <div class="mb-3">
+                <div class="mb-3"><strong>
                     <label for="exampleInputPassword1"  class="form-label">Does your child use simple gestures? e.g wave goodbye</label>
                     <select class="form-select" id="A9" name="A9" aria-label="Default select example">
                         <option selected>-- Select an option --</option>
